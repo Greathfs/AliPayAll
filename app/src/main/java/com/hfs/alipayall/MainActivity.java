@@ -687,6 +687,8 @@ public class MainActivity extends AppCompatActivity implements PagerGridLayoutMa
         mMyAdapter = new MyAdapter(mContentList);
         mRecyclerView.setAdapter(mMyAdapter);
 
+        smoothScrollToTop();
+
     }
 
 
