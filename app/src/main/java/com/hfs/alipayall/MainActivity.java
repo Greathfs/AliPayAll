@@ -7,6 +7,7 @@ import android.graphics.PointF;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
@@ -84,6 +85,7 @@ public class MainActivity extends AppCompatActivity implements PagerGridLayoutMa
      * RecyclerView高度
      */
     private int mRecyclerViewHeight;
+
     /**
      * 平滑滚动 Scroller
      */
@@ -205,6 +207,9 @@ public class MainActivity extends AppCompatActivity implements PagerGridLayoutMa
                 }
             }
         });
+
+        mMyAdapter = new MyAdapter(mContentList);
+        mRecyclerView.setAdapter(mMyAdapter);
     }
 
     /**
@@ -295,6 +300,7 @@ public class MainActivity extends AppCompatActivity implements PagerGridLayoutMa
             mRecycledViewPool = new RecycledViewPool();
         }
 
+        @NonNull
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             if (viewType == VIEW_TYPE_ITEM) {
@@ -303,7 +309,6 @@ public class MainActivity extends AppCompatActivity implements PagerGridLayoutMa
             } else {
                 //Footer是最后留白的位置，以便最后一个item能够出发tab的切换
                 View view = new View(parent.getContext());
-                Log.e("footer", "parentHeight: " + mRecyclerViewHeight + "--" + "itemHeight: " + itemHeight);
                 view.setLayoutParams(
                         new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                                 mRecyclerViewHeight - itemHeight));
@@ -344,6 +349,12 @@ public class MainActivity extends AppCompatActivity implements PagerGridLayoutMa
                         addToTitle(subItem, position, contentItemAdapter);
                     }
                 });
+            } else {
+                FooterViewHolder footerViewHolder = (FooterViewHolder) holder;
+                View itemView = footerViewHolder.itemView;
+                itemView.setLayoutParams(
+                        new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                                mRecyclerViewHeight - itemHeight));
             }
 
         }
@@ -683,9 +694,7 @@ public class MainActivity extends AppCompatActivity implements PagerGridLayoutMa
             mTabLayout.addTab(mTabLayout.newTab().setText(it.name));
         }
 
-        mMyAdapter = new MyAdapter(mContentList);
-        mRecyclerView.setAdapter(mMyAdapter);
-
+        mMyAdapter.notifyDataSetChanged();
         smoothScrollToTop();
 
     }
