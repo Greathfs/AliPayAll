@@ -210,6 +210,12 @@ public class MainActivity extends AppCompatActivity implements PagerGridLayoutMa
 
         mMyAdapter = new MyAdapter(mContentList);
         mRecyclerView.setAdapter(mMyAdapter);
+        mRecyclerView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                return true;
+            }
+        });
     }
 
     /**
@@ -307,12 +313,8 @@ public class MainActivity extends AppCompatActivity implements PagerGridLayoutMa
                 final View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.demo_item, parent, false);
                 return new ItemViewHolder(view);
             } else {
-                //Footer是最后留白的位置，以便最后一个item能够出发tab的切换
-                View view = new View(parent.getContext());
-                view.setLayoutParams(
-                        new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                                mRecyclerViewHeight - itemHeight));
-                return new FooterViewHolder(view);
+                View footView = LayoutInflater.from(parent.getContext()).inflate(R.layout.demo_item_footer, parent, false);
+                return new FooterViewHolder(footView);
             }
         }
 
@@ -351,10 +353,11 @@ public class MainActivity extends AppCompatActivity implements PagerGridLayoutMa
                 });
             } else {
                 FooterViewHolder footerViewHolder = (FooterViewHolder) holder;
-                View itemView = footerViewHolder.itemView;
-                itemView.setLayoutParams(
-                        new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                                mRecyclerViewHeight - itemHeight));
+                int tilteHeight = footerViewHolder.mFooterTilte.getHeight();
+                View emptyView = footerViewHolder.mFooterEmpty;
+                emptyView.setLayoutParams(
+                        new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                                mRecyclerViewHeight - itemHeight - tilteHeight));
             }
 
         }
@@ -370,7 +373,7 @@ public class MainActivity extends AppCompatActivity implements PagerGridLayoutMa
 
         @Override
         public int getItemCount() {
-            return mData.size() + 1;
+            return mData.size() == 0 ? 0 : mData.size() + 1;
         }
 
         public void setEditMode(boolean edit) {
@@ -380,8 +383,13 @@ public class MainActivity extends AppCompatActivity implements PagerGridLayoutMa
 
         class FooterViewHolder extends RecyclerView.ViewHolder {
 
+            private TextView mFooterTilte;
+            private View mFooterEmpty;
+
             public FooterViewHolder(View itemView) {
                 super(itemView);
+                mFooterTilte = itemView.findViewById(R.id.tv_footer);
+                mFooterEmpty = itemView.findViewById(R.id.view_footer_empty);
             }
         }
 
@@ -482,12 +490,14 @@ public class MainActivity extends AppCompatActivity implements PagerGridLayoutMa
         mEditMode = true;
         mMyAdapter.setEditMode(true);
         mTitleAdapter.setEditMode(true);
-        smoothScrollToTop();
-        ExTabLayout.Tab tabAt = mTabLayout.getTabAt(0);
-        if (tabAt != null && !tabAt.isSelected()) {
-            tabAt.select();
-        }
+        mRecyclerView.smoothScrollToPosition(0);
         noScroll();
+//        smoothScrollToTop();
+//        ExTabLayout.Tab tabAt = mTabLayout.getTabAt(0);
+//        if (tabAt != null && !tabAt.isSelected()) {
+//            tabAt.select();
+//        }
+
     }
 
     /**

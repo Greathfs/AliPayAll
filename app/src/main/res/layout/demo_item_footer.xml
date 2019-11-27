@@ -1,9 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<View
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/demo_item_footer"
-    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-</View>
+    <TextView
+        android:id="@+id/tv_footer"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:background="#FF0000"
+        android:textColor="#FFFFFF"
+        android:text="我是有底线的" />
+
+    <View
+        android:id="@+id/view_footer_empty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>
