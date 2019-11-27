@@ -34,6 +34,7 @@
             <enum name="equalToIcon" value="-3" />
             <enum name="equalToCustom" value="-4" />
         </attr>
+        <attr name="exTabIndicatorCornerRadius" format="dimension" />
         <!--设置指示器间距,和exTabIndicatorGravity一起使用,如果设置top,那么就是和上方的间距,如果设置bottom,那么就是和下方的间距 -->
         <attr name="exTabIndicatorPadding" format="dimension" />
         <attr name="exTabContentStart" format="dimension" />

@@ -26,6 +26,7 @@ import android.content.res.TypedArray;
 import android.database.DataSetObserver;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.ColorInt;
@@ -390,6 +391,8 @@ public class ExTabLayout extends HorizontalScrollView {
                 }
             }
         }
+
+        mTabStrip.setTabIndicatorCornerRadius(a.getDimensionPixelSize(R.styleable.ExTabLayout_exTabIndicatorCornerRadius, 0));
 
         mTabStrip.setTabIndicatorPadding(a.getDimensionPixelSize(R.styleable.ExTabLayout_exTabIndicatorPadding, 0));
 
@@ -1917,6 +1920,7 @@ public class ExTabLayout extends HorizontalScrollView {
         private int mTabIndicatorGravity;
         private float mTabIndicatorStretch;
         private Drawable mTabIndicatorDrawable;
+        private float mTabIndicatorCornerRadius;
         private int mTabIndicatorWidth;
         private int mTabIndicatorHeight;
         private int mTabIndicatorPadding;
@@ -1967,6 +1971,13 @@ public class ExTabLayout extends HorizontalScrollView {
             }
             if (mTabIndicatorStretch != stretch) {
                 mTabIndicatorStretch = stretch;
+                ViewCompat.postInvalidateOnAnimation(this);
+            }
+        }
+
+        void setTabIndicatorCornerRadius(float radius) {
+            if (mTabIndicatorCornerRadius != radius) {
+                mTabIndicatorCornerRadius = radius;
                 ViewCompat.postInvalidateOnAnimation(this);
             }
         }
@@ -2373,8 +2384,16 @@ public class ExTabLayout extends HorizontalScrollView {
                     mTabIndicatorDrawable.setBounds(left, top, right, bottom);
                     mTabIndicatorDrawable.draw(canvas);
                 } else {
-                    canvas.drawRect(left, top,
-                            right, bottom, mTabIndicatorPaint);
+                    if (mTabIndicatorCornerRadius > 0) {
+                        if (mTabIndicatorCornerRadius > height / 2) {
+                            mTabIndicatorCornerRadius = height / 2;
+                        }
+                        RectF rect = new RectF(left, top, right, bottom);
+                        canvas.drawRoundRect(rect, mTabIndicatorCornerRadius, mTabIndicatorCornerRadius, mTabIndicatorPaint);
+                    } else {
+                        canvas.drawRect(left, top,
+                                right, bottom, mTabIndicatorPaint);
+                    }
                 }
             }
         }
