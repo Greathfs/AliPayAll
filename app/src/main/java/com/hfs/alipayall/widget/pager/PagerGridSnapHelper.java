@@ -20,7 +20,7 @@
  * WebSite: http://www.gcssloop.com
  */
 
-package com.hfs.alipayall.widget;
+package com.hfs.alipayall.widget.pager;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -29,7 +29,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SnapHelper;
 import android.view.View;
 
-import static com.hfs.alipayall.widget.PagerConfig.Loge;
+import static com.hfs.alipayall.widget.pager.PagerConfig.Loge;
 
 
 /**

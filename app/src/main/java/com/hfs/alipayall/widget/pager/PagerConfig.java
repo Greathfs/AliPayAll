@@ -20,7 +20,7 @@
  * WebSite: http://www.gcssloop.com
  */
 
-package com.hfs.alipayall.widget;
+package com.hfs.alipayall.widget.pager;
 
 import android.util.Log;
 

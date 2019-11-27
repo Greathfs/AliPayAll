@@ -35,8 +35,9 @@ import com.hfs.alipayall.adapter.TitleAdapter;
 import com.hfs.alipayall.bean.Item;
 import com.hfs.alipayall.bean.Item.SubItem;
 import com.hfs.alipayall.widget.FixAppBarLayoutBehavior;
-import com.hfs.alipayall.widget.PagerGridLayoutManager;
-import com.hfs.alipayall.widget.PagerGridSnapHelper;
+import com.hfs.alipayall.widget.pager.PagerGridLayoutManager;
+import com.hfs.alipayall.widget.pager.PagerGridSnapHelper;
+import com.hfs.alipayall.widget.tablayout.ExTabLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements PagerGridLayoutMa
     /**
      * TabLayout
      */
-    private TabLayout mTabLayout;
+    private ExTabLayout mTabLayout;
     /**
      * 内容列表
      */
@@ -131,12 +132,10 @@ public class MainActivity extends AppCompatActivity implements PagerGridLayoutMa
      */
     private void initTabLayout() {
 
-        mTabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
-        mTabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(this, R.color.colorAccent));
-        mTabLayout.setTabTextColors(Color.BLACK, ContextCompat.getColor(this, R.color.colorAccent));
-        mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+        mTabLayout.setTabMode(ExTabLayout.MODE_SCROLLABLE);
+        mTabLayout.addOnTabSelectedListener(new ExTabLayout.OnTabSelectedListener() {
             @Override
-            public void onTabSelected(TabLayout.Tab tab) {
+            public void onTabSelected(ExTabLayout.Tab tab) {
                 //点击tab的时候，RecyclerView自动滑到该tab对应的item位置
                 int position = tab.getPosition();
                 if (!isScroll) {
@@ -150,12 +149,12 @@ public class MainActivity extends AppCompatActivity implements PagerGridLayoutMa
             }
 
             @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
+            public void onTabUnselected(ExTabLayout.Tab tab) {
 
             }
 
             @Override
-            public void onTabReselected(TabLayout.Tab tab) {
+            public void onTabReselected(ExTabLayout.Tab tab) {
 
             }
         });
@@ -200,7 +199,7 @@ public class MainActivity extends AppCompatActivity implements PagerGridLayoutMa
                 //滑动RecyclerView list的时候，根据最上面一个Item的position来切换tab
                 LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
                 int firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition();
-                TabLayout.Tab tabAt = mTabLayout.getTabAt(firstVisibleItemPosition);
+                ExTabLayout.Tab tabAt = mTabLayout.getTabAt(firstVisibleItemPosition);
                 if (tabAt != null && !tabAt.isSelected()) {
                     tabAt.select();
                 }
@@ -473,7 +472,7 @@ public class MainActivity extends AppCompatActivity implements PagerGridLayoutMa
         mMyAdapter.setEditMode(true);
         mTitleAdapter.setEditMode(true);
         smoothScrollToTop();
-        TabLayout.Tab tabAt = mTabLayout.getTabAt(0);
+        ExTabLayout.Tab tabAt = mTabLayout.getTabAt(0);
         if (tabAt != null && !tabAt.isSelected()) {
             tabAt.select();
         }

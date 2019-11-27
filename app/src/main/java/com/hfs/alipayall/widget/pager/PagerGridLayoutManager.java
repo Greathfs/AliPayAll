@@ -20,7 +20,7 @@
  * WebSite: http://www.gcssloop.com
  */
 
-package com.hfs.alipayall.widget;
+package com.hfs.alipayall.widget.pager;
 
 import android.annotation.SuppressLint;
 import android.graphics.PointF;
@@ -36,8 +36,8 @@ import android.view.ViewGroup;
 
 import static android.support.v7.widget.RecyclerView.SCROLL_STATE_IDLE;
 import static android.view.View.MeasureSpec.EXACTLY;
-import static com.hfs.alipayall.widget.PagerConfig.Loge;
-import static com.hfs.alipayall.widget.PagerConfig.Logi;
+import static com.hfs.alipayall.widget.pager.PagerConfig.Loge;
+import static com.hfs.alipayall.widget.pager.PagerConfig.Logi;
 
 
 /**

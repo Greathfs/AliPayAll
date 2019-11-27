@@ -74,10 +74,16 @@
 
             </LinearLayout>
 
-            <android.support.design.widget.TabLayout
+            <com.hfs.alipayall.widget.tablayout.ExTabLayout
                 android:id="@+id/tab_layout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                app:exTabBackground="@drawable/item_background_holo_light"
+                app:exTabIndicatorPadding="4dp"
+                app:exTabIndicatorStretch="0"
+                app:exTabIndicatorWidth="24dp"
+                app:exTabSelectedTextSize="14sp"
+                app:exTabTextSize="14sp" />
 
         </android.support.design.widget.AppBarLayout>
 
